@@ -9,7 +9,3 @@ dist/
 *.iml
 .vscode/
 out/
-
-# Python caches
-__pycache__/
-*.pyc

@@ -83,11 +83,6 @@ public class ChargingUpgradeWrapper extends UpgradeWrapperBase<ChargingUpgradeWr
 		chargeOnce(entity, (long) upgradeItem.getChargeRate() * interval, interval);
 	}
 
-	/** One charge cycle covering a single tick. */
-	public int chargeOnce(@Nullable Entity entity, long budget) {
-		return chargeOnce(entity, budget, 1);
-	}
-
 	/**
 	 * One charge cycle: moves up to {@code budget} FE from the pool into the items this upgrade charges. {@code ticks} is how many
 	 * ticks the cycle stands for; each item gets that many transfers, so items that limit how much they take per transfer
@@ -95,7 +90,7 @@ public class ChargingUpgradeWrapper extends UpgradeWrapperBase<ChargingUpgradeWr
 	 */
 	public int chargeOnce(@Nullable Entity entity, long budget, int ticks) {
 		ChargeRun run = new ChargeRun(getPool(), (int) Math.min(Integer.MAX_VALUE, Math.max(0, budget)), Math.max(1, ticks));
-		// (not a 1 FE test pull: mods that convert to their own units, like Mekanism, round that down to 0)
+		// Checks stored energy instead of a 1 FE trial pull: mods with their own energy units (Mekanism) round 1 FE down to 0.
 		if (run.remaining <= 0 || run.pool.getEnergyStoredLong() <= 0) {
 			return 0;
 		}

@@ -75,8 +75,6 @@ neoForge.ideSyncTask generateModMetadata
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 
 jar {
-    // Test items only exist in the dev environment (DevContent); keep their models out of the released jar.
-    exclude 'assets/sophisticatedcharging/models/item/test_*'
     from('../LICENSE') { rename { 'LICENSE_sophisticatedcharging' } }
     manifest {
         attributes([

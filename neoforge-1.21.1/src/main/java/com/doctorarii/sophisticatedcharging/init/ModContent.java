@@ -11,11 +11,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -50,9 +48,6 @@ public final class ModContent {
 	}
 
 	public static void register(IEventBus modBus) {
-		if (!FMLEnvironment.production) {
-			DevContent.register(ITEMS, DATA_COMPONENTS, modBus);
-		}
 		ITEMS.register(modBus);
 		DATA_COMPONENTS.register(modBus);
 		modBus.addListener(ModContent::onCommonSetup);
@@ -70,8 +65,6 @@ public final class ModContent {
 		if (event.getTabKey().equals(BACKPACKS_TAB)) {
 			event.accept(CHARGING_UPGRADE.get());
 			event.accept(ADVANCED_CHARGING_UPGRADE.get());
-		} else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && !FMLEnvironment.production) {
-			DevContent.addToCreativeTab(event);
 		}
 	}
 }

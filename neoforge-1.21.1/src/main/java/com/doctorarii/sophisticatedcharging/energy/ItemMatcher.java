@@ -71,10 +71,6 @@ public final class ItemMatcher {
 		return new ItemMatcher(Set.copyOf(items), Set.copyOf(mods), List.copyOf(tags));
 	}
 
-	public boolean isEmpty() {
-		return this == EMPTY;
-	}
-
 	public boolean matches(ItemStack stack) {
 		if (this == EMPTY || stack.isEmpty()) {
 			return false;

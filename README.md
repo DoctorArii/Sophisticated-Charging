@@ -17,8 +17,8 @@ Curios is optional. Install Sophisticated Charging on both the server and the cl
 ## What it adds
 
 ### Charging Upgrade
-- Every battery you put in the backpack (from **any mod** that uses Forge Energy: Mekanism, Powah, Draconic Evolution,
-  Industrial Foregoing, Flux Networks, ...) joins one shared energy pool. The backpack's own Battery Upgrade joins too.
+- Every battery you put in the backpack (from **any mod** that uses Forge Energy, such as Mekanism and Powah) joins one
+  shared energy pool. The backpack's own Battery Upgrade joins too.
 - While you carry or wear the backpack, the pool charges your **armor and the items in both hands**.
 - Cables and chargers see the backpack (held or placed) as **one big battery**: put it on a charger and every battery
   inside fills up; pull from a placed backpack and they all drain.
@@ -96,4 +96,4 @@ MIT (see `LICENSE`): use it in any modpack, fork it, port it; just keep the copy
 
 ## Building
 Each Minecraft version is its own Gradle project: `cd neoforge-1.21.1` (or `forge-1.20.1`) and `./gradlew build`; the
-jar is in `build/libs/`. `tools/make_textures.py` draws the textures.
+jar is in `build/libs/`.

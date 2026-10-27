@@ -47,11 +47,6 @@ public class BatteryPool implements IEnergyStorage {
 		return base;
 	}
 
-	/** Forces a rescan of the backpack inventory on next use. */
-	public void invalidate() {
-		dirty = true;
-	}
-
 	public boolean isBatterySlot(int slot) {
 		refresh();
 		return Arrays.binarySearch(slots, slot) >= 0;

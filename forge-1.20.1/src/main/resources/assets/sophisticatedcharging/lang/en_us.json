@@ -5,12 +5,6 @@
   "item.sophisticatedcharging.advanced_charging_upgrade.tooltip": "Like the Charging Upgrade, but faster, and can also charge\nyour whole inventory, Curios slots and tools stored in the backpack.\nHas a filter for what gets charged.",
   "item.sophisticatedcharging.charging_upgrade.rate": "Charges up to %s FE/t",
 
-  "item.sophisticatedcharging.test_battery": "Test Battery (dev)",
-  "item.sophisticatedcharging.test_big_battery": "Big Test Battery (dev)",
-  "item.sophisticatedcharging.test_tool": "Test Tool (dev)",
-  "item.sophisticatedcharging.test_creative_battery": "Creative Test Battery (dev)",
-  "item.sophisticatedcharging.test_stackable_battery": "Stackable Test Battery (dev)",
-
   "gui.sophisticatedcharging.upgrades.charging": "Charging",
   "gui.sophisticatedcharging.upgrades.charging.tooltip": "Charging Upgrade settings",
   "gui.sophisticatedcharging.upgrades.advanced_charging": "Adv. Charging",

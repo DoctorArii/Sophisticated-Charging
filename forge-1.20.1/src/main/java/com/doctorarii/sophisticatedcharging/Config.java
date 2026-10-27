@@ -119,7 +119,7 @@ public final class Config {
 		rebuildMatchers();
 	}
 
-	/** Rebuilds the ban list matchers from the config values. Public so tests can apply changed values at once. */
+	/** Rebuilds the ban list matchers from the current config values. */
 	public static void rebuildMatchers() {
 		bannedBatteries = ItemMatcher.parse(SERVER.bannedBatteries.get());
 		bannedChargeTargets = ItemMatcher.parse(SERVER.bannedChargeTargets.get());
