@@ -5,7 +5,7 @@
 An addon for [Sophisticated Backpacks](https://www.curseforge.com/minecraft/mc-mods/sophisticated-backpacks) that turns a
 backpack full of batteries into one big power bank that charges your gear.
 
-![A MekaSuit kept charged by the batteries in the backpack](docs/images/in-world.png)
+![A worn and a placed backpack, each showing its pool's charge on the battery of the backpack model](docs/images/in-world.png)
 
 | Minecraft | Loader | Needs |
 |---|---|---|
@@ -22,11 +22,16 @@ Curios is optional. Install Sophisticated Charging on both the server and the cl
 - While you carry or wear the backpack, the pool charges your **armor and the items in both hands**.
 - Cables and chargers see the backpack (held or placed) as **one big battery**: put it on a charger and every battery
   inside fills up; pull from a placed backpack and they all drain.
-- You can see the pool's charge at a glance: on the battery on the side of the backpack (worn, held or placed) and as a
-  gold bar under the backpack icon in your inventory and hotbar, and as a percentage in the backpack's tooltip.
 - 1,000 FE/t by default.
 
-![Charging Upgrade tab: two Energy Tablets, an energy cube and two Powah batteries form one 57M FE pool; the Meka-Tool next to them is not counted](docs/images/basic-tab.png)
+![Charging Upgrade tab: four Energy Tablets form one pool, shown with its total charge and battery count](docs/images/basic-tab.png)
+
+### See the charge at a glance
+- On the backpack itself: the battery on the backpack model shows the whole pool, worn, held or placed.
+- A gold bar under the backpack's icon in your inventory and hotbar.
+- The backpack's tooltip says how much is left ("Charge: 73%").
+
+![Inventory: gold charge bars under the backpacks in the hotbar and a tooltip saying Charge: 73%](docs/images/charge-display.png)
 
 ### Advanced Charging Upgrade
 Everything above, plus:
