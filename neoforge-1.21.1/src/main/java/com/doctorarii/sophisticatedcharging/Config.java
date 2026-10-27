@@ -8,19 +8,24 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import java.util.List;
 
 /**
- * Server config (synced to clients). Lives in {@code config/sophisticatedcharging-server.toml}; a copy in
- * {@code <world>/serverconfig/} overrides it for that world.
+ * Server config (synced to clients): {@code config/sophisticatedcharging-server.toml}; a copy in {@code <world>/serverconfig/}
+ * overrides it for that world. Client config (display only): {@code config/sophisticatedcharging-client.toml}.
  */
 public final class Config {
 	private static final String ENTRY_HELP = "Entries: \"modid:item\" for one item, \"modid:*\" or \"@modid\" for every item of a mod, \"#namespace:tag\" for an item tag.";
 
 	public static final ModConfigSpec SERVER_SPEC;
 	public static final Server SERVER;
+	public static final ModConfigSpec CLIENT_SPEC;
+	public static final Client CLIENT;
 
 	static {
 		ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 		SERVER = new Server(builder);
 		SERVER_SPEC = builder.build();
+		ModConfigSpec.Builder clientBuilder = new ModConfigSpec.Builder();
+		CLIENT = new Client(clientBuilder);
+		CLIENT_SPEC = clientBuilder.build();
 	}
 
 	private static ItemMatcher bannedBatteries = ItemMatcher.EMPTY;
@@ -84,6 +89,15 @@ public final class Config {
 							"#sophisticatedcharging:not_batteries to override it.")
 					.define("chargeBatteriesOutsideBackpack", false);
 			builder.pop();
+		}
+	}
+
+	public static final class Client {
+		public final ModConfigSpec.BooleanValue showChargeBar;
+
+		Client(ModConfigSpec.Builder builder) {
+			showChargeBar = builder.comment("Show the battery charge as a bar under backpack icons (backpacks with a Charging Upgrade or a Battery Upgrade).")
+					.define("showChargeBar", true);
 		}
 	}
 

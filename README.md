@@ -22,6 +22,8 @@ Curios is optional. Install Sophisticated Charging on both the server and the cl
 - While you carry or wear the backpack, the pool charges your **armor and the items in both hands**.
 - Cables and chargers see the backpack (held or placed) as **one big battery**: put it on a charger and every battery
   inside fills up; pull from a placed backpack and they all drain.
+- You can see the pool's charge at a glance: on the battery on the side of the backpack (worn, held or placed) and as a
+  gold bar under the backpack icon in your inventory and hotbar, and as a percentage in the backpack's tooltip.
 - 1,000 FE/t by default.
 
 ![Charging Upgrade tab: two Energy Tablets, an energy cube and two Powah batteries form one 57M FE pool; the Meka-Tool next to them is not counted](docs/images/basic-tab.png)
@@ -76,6 +78,9 @@ worlds in `defaultconfigs/`).
 | `chargeTargets.chargeBatteriesOutsideBackpack` | false | also charge batteries in the player's inventory |
 
 Ban list entries: `"modid:item"` (one item), `"modid:*"` or `"@modid"` (a whole mod), `"#namespace:tag"` (an item tag).
+
+Each player can hide the charge bar under backpack icons in `sophisticatedcharging-client.toml` in their game's
+`config` folder (`showChargeBar = false`).
 
 Item tags for datapacks / KubeJS:
 - `sophisticatedcharging:banned_batteries`: never used in the pool (still not charged, it's a battery)

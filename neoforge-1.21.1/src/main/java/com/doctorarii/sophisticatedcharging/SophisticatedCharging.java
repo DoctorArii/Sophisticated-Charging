@@ -18,6 +18,7 @@ public class SophisticatedCharging {
 
 	public SophisticatedCharging(IEventBus modBus, ModContainer container) {
 		container.registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
+		container.registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 		modBus.addListener(Config::onConfigChanged);
 		modBus.addListener(Config::onConfigLoaded);
 		ModContent.register(modBus);

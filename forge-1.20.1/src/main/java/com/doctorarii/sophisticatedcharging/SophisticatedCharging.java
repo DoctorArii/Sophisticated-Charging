@@ -20,6 +20,7 @@ public class SophisticatedCharging {
 	public SophisticatedCharging() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 		modBus.addListener(Config::onConfigChanged);
 		modBus.addListener(Config::onConfigLoaded);
 		ModContent.register(modBus);

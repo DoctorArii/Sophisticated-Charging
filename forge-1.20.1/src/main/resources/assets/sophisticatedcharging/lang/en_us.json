@@ -4,6 +4,7 @@
   "item.sophisticatedcharging.advanced_charging_upgrade": "Advanced Charging Upgrade",
   "item.sophisticatedcharging.advanced_charging_upgrade.tooltip": "Like the Charging Upgrade, but faster, and can also charge\nyour whole inventory, Curios slots and tools stored in the backpack.\nHas a filter for what gets charged.",
   "item.sophisticatedcharging.charging_upgrade.rate": "Charges up to %s FE/t",
+  "tooltip.sophisticatedcharging.charge": "Charge: %s",
 
   "gui.sophisticatedcharging.upgrades.charging": "Charging",
   "gui.sophisticatedcharging.upgrades.charging.tooltip": "Charging Upgrade settings",

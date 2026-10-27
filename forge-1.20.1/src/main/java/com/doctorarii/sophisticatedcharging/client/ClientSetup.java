@@ -2,6 +2,7 @@ package com.doctorarii.sophisticatedcharging.client;
 
 import com.doctorarii.sophisticatedcharging.init.ModContent;
 import com.doctorarii.sophisticatedcharging.upgrade.ChargingUpgradeContainer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.p3pp3rf1y.sophisticatedcore.client.gui.StorageScreenBase;
@@ -16,6 +17,8 @@ public final class ClientSetup {
 
 	public static void init(IEventBus modBus) {
 		modBus.addListener(ClientSetup::onClientSetup);
+		modBus.addListener(ChargeBarDecorator::register);
+		MinecraftForge.EVENT_BUS.addListener(ChargeTooltip::onTooltip);
 	}
 
 	private static void onClientSetup(FMLClientSetupEvent event) {

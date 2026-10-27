@@ -20,6 +20,7 @@ import net.p3pp3rf1y.sophisticatedcore.api.IStorageWrapper;
 import net.p3pp3rf1y.sophisticatedcore.init.ModCoreDataComponents;
 import net.p3pp3rf1y.sophisticatedcore.inventory.InventoryHandler;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.FilterLogic;
+import net.p3pp3rf1y.sophisticatedcore.upgrades.IRenderedBatteryUpgrade;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.ITickableUpgrade;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeWrapperBase;
 
@@ -29,14 +30,16 @@ import java.util.function.Supplier;
 
 /**
  * Links every battery in the backpack into one pool (exposed to SB as the backpack's energy storage) and, while the
- * backpack is carried, worn or placed, charges items from that pool.
+ * backpack is carried, worn or placed, charges items from that pool. The pool's charge is shown on the backpack model.
  */
 public class ChargingUpgradeWrapper extends UpgradeWrapperBase<ChargingUpgradeWrapper, ChargingUpgradeItem>
-		implements ITickableUpgrade, IEnergyStorageUpgradeWrapper {
+		implements ITickableUpgrade, IEnergyStorageUpgradeWrapper, IRenderedBatteryUpgrade {
 	@Nullable
 	private final FilterLogic filterLogic;
 	private final BatteryPool pool;
 	private boolean baseResolved = false;
+	@Nullable
+	private Consumer<BatteryRenderInfo> renderInfoCallback;
 
 	public ChargingUpgradeWrapper(IStorageWrapper storageWrapper, ItemStack upgrade, Consumer<ItemStack> upgradeSaveHandler) {
 		super(storageWrapper, upgrade, upgradeSaveHandler);
@@ -79,12 +82,39 @@ public class ChargingUpgradeWrapper extends UpgradeWrapperBase<ChargingUpgradeWr
 
 	@Override
 	public void tick(@Nullable Entity entity, Level level, BlockPos pos) {
-		if (level.isClientSide() || !isEnabled() || isInCooldown(level)) {
+		if (level.isClientSide() || isInCooldown(level)) {
 			return;
 		}
 		int interval = Config.isLoaded() ? Config.SERVER.chargeInterval.get() : 10;
 		setCooldown(level, interval);
-		chargeOnce(entity, (long) upgradeItem.getChargeRate() * interval, interval);
+		if (isEnabled()) {
+			chargeOnce(entity, (long) upgradeItem.getChargeRate() * interval, interval);
+		}
+		forceUpdateBatteryRenderInfo();
+	}
+
+	@Override
+	public void setBatteryRenderInfoUpdateCallback(Consumer<BatteryRenderInfo> callback) {
+		renderInfoCallback = callback;
+	}
+
+	/**
+	 * Shows the pool's charge on the backpack model (SB draws it in 8 steps and only syncs a change of step). SB's own
+	 * Battery Upgrade in the same backpack reports through here too, so the model always shows the whole pool.
+	 */
+	@Override
+	public void forceUpdateBatteryRenderInfo() {
+		if (renderInfoCallback == null) {
+			return;
+		}
+		for (IRenderedBatteryUpgrade other : storageWrapper.getUpgradeHandler().getWrappersThatImplement(IRenderedBatteryUpgrade.class)) {
+			if (other != this) {
+				other.setBatteryRenderInfoUpdateCallback(info -> forceUpdateBatteryRenderInfo());
+			}
+		}
+		BatteryPool batteryPool = getPool();
+		long capacity = batteryPool.getMaxEnergyStoredLong();
+		renderInfoCallback.accept(new BatteryRenderInfo(capacity > 0 ? (float) ((double) batteryPool.getEnergyStoredLong() / capacity) : 0f));
 	}
 
 	/**

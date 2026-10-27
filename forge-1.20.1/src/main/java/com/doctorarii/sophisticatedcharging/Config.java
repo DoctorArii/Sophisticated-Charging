@@ -8,19 +8,24 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.List;
 
 /**
- * Server config (per world, synced to clients). Lives in {@code <world>/serverconfig/sophisticatedcharging-server.toml};
- * defaults for new worlds can be put in {@code defaultconfigs/}.
+ * Server config (per world, synced to clients): {@code <world>/serverconfig/sophisticatedcharging-server.toml}; defaults for
+ * new worlds can be put in {@code defaultconfigs/}. Client config (display only): {@code config/sophisticatedcharging-client.toml}.
  */
 public final class Config {
 	private static final String ENTRY_HELP = "Entries: \"modid:item\" for one item, \"modid:*\" or \"@modid\" for every item of a mod, \"#namespace:tag\" for an item tag.";
 
 	public static final ForgeConfigSpec SERVER_SPEC;
 	public static final Server SERVER;
+	public static final ForgeConfigSpec CLIENT_SPEC;
+	public static final Client CLIENT;
 
 	static {
 		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 		SERVER = new Server(builder);
 		SERVER_SPEC = builder.build();
+		ForgeConfigSpec.Builder clientBuilder = new ForgeConfigSpec.Builder();
+		CLIENT = new Client(clientBuilder);
+		CLIENT_SPEC = clientBuilder.build();
 	}
 
 	private static ItemMatcher bannedBatteries = ItemMatcher.EMPTY;
@@ -84,6 +89,15 @@ public final class Config {
 							"#sophisticatedcharging:not_batteries to override it.")
 					.define("chargeBatteriesOutsideBackpack", false);
 			builder.pop();
+		}
+	}
+
+	public static final class Client {
+		public final ForgeConfigSpec.BooleanValue showChargeBar;
+
+		Client(ForgeConfigSpec.Builder builder) {
+			showChargeBar = builder.comment("Show the battery charge as a bar under backpack icons (backpacks with a Charging Upgrade or a Battery Upgrade).")
+					.define("showChargeBar", true);
 		}
 	}
 
