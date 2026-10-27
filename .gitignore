@@ -1,0 +1,15 @@
+# Build output and dev runs
+**/build/
+**/.gradle/
+**/run/
+dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+out/
+
+# Python caches
+__pycache__/
+*.pyc
