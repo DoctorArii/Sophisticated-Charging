@@ -9,10 +9,18 @@ backpack full of batteries into one big power bank that charges your gear.
 
 | Minecraft | Loader | Needs |
 |---|---|---|
-| 1.21.1 | NeoForge | Sophisticated Backpacks 3.25.9+, Sophisticated Core 1.3.89+ |
-| 1.20.1 | Forge (also NeoForge 1.20.1) | Sophisticated Backpacks 3.24.9+, Sophisticated Core 1.2.105+ |
+| 26.3 | NeoForge | Sophisticated Backpacks 3.26.5+, Sophisticated Core 1.5.2+ |
+| 26.2 | NeoForge | Sophisticated Backpacks 3.25.84+, Sophisticated Core 1.4.90+ |
+| 26.1.2 | NeoForge | Sophisticated Backpacks 3.26.3+, Sophisticated Core 1.5.2+ |
+| 1.21.11 | NeoForge | Sophisticated Backpacks 3.25.54+, Sophisticated Core 1.4.42+ |
+| 1.21.1 | NeoForge | Sophisticated Backpacks 3.20.12+, Sophisticated Core 0.6.36+ |
+| 1.20.1 | Forge (also NeoForge 1.20.1) | Sophisticated Backpacks 3.20.5+, Sophisticated Core 0.6.18+ |
+| 1.20.1 | Fabric | the unofficial Fabric port of Sophisticated Backpacks 3.20.11+ / Core 0.6.33+, Forge Config API Port |
+| 1.19.2 | Forge | Sophisticated Backpacks 3.19.6+, Sophisticated Core 0.5.113+ |
+| 1.18.2 | Forge | Sophisticated Backpacks 3.19.7+, Sophisticated Core 0.5.113+ |
 
-Curios is optional. Install Sophisticated Charging on both the server and the clients.
+Curios is optional (Forge/NeoForge). Install Sophisticated Charging on both the server and the clients.
+On Fabric, energy is Team Reborn Energy (E) instead of Forge Energy (FE), and there is no Curios option.
 
 ## What it adds
 
@@ -65,9 +73,9 @@ One Charging Upgrade per backpack. The Advanced one is made from the basic one a
 - Charging order: helmet to boots, main hand, off hand, then (advanced) hotbar and inventory, Curios, backpack contents.
 
 ## For server owners and pack makers
-Everything is in `sophisticatedcharging-server.toml`, synced to players. On 1.21.1 it is in `config/` (a copy in
-`<world>/serverconfig/` overrides it for one world); on 1.20.1 it is in `<world>/serverconfig/` (put defaults for new
-worlds in `defaultconfigs/`).
+Everything is in `sophisticatedcharging-server.toml`, synced to players. On NeoForge 1.21.1 and newer it is in
+`config/` (a copy in `<world>/serverconfig/` overrides it for one world); on Forge 1.20.1 and older it is in
+`<world>/serverconfig/` (put defaults for new worlds in `defaultconfigs/`); on Fabric it is in `config/`.
 
 | Setting | Default | What it does |
 |---|---|---|
@@ -105,5 +113,5 @@ Example: keep the biggest Draconic capacitors and everything from Powah out of t
 MIT (see `LICENSE`): use it in any modpack, fork it, port it; just keep the copyright notice.
 
 ## Building
-Each Minecraft version is its own Gradle project: `cd neoforge-1.21.1` (or `forge-1.20.1`) and `./gradlew build`; the
-jar is in `build/libs/`.
+Each Minecraft version and loader is its own Gradle project (`neoforge-1.21.1`, `forge-1.20.1`, `fabric-1.20.1`, ...):
+`cd` into it and run `./gradlew build`; the jar is in `build/libs/`.

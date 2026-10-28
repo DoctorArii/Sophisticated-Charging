@@ -1,0 +1,53 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="${mod_license}"
+
+[[mods]]
+modId="sophisticatedcharging"
+version="${mod_version}"
+displayName="Sophisticated Charging"
+authors="${mod_authors}"
+logoFile="logo.png"
+description='''
+Charging Upgrades for Sophisticated Backpacks.
+- Every battery you put in the backpack, from any mod, joins one shared energy pool.
+- The pool charges your armor and held tools while you carry or wear the backpack.
+- The Advanced Charging Upgrade also charges your whole inventory, Curios slots and tools stored in the backpack, with a filter.
+- Cables and chargers see the whole backpack as one big battery.
+- Server owners can ban items, whole mods or tags as batteries or as charge targets, and infinite (creative) batteries are left out by default.
+'''
+
+[[dependencies.sophisticatedcharging]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.sophisticatedcharging]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.18.3)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.sophisticatedcharging]]
+    modId="sophisticatedcore"
+    mandatory=true
+    versionRange="${sophisticated_core_range}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.sophisticatedcharging]]
+    modId="sophisticatedbackpacks"
+    mandatory=true
+    versionRange="${sophisticated_backpacks_range}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.sophisticatedcharging]]
+    modId="curios"
+    mandatory=false
+    versionRange="[1.18.2-5.0,)"
+    ordering="NONE"
+    side="BOTH"

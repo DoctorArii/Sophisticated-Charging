@@ -1,0 +1,80 @@
+plugins {
+    id 'fabric-loom' version '1.19.3'
+}
+
+version = "${minecraft_version}-${mod_version}-fabric"
+group = mod_group_id
+base { archivesName = mod_id }
+
+repositories {
+    exclusiveContent {
+        forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    // The Fabric port of Sophisticated Backpacks is only on CurseForge.
+    exclusiveContent {
+        forRepository { maven { name = 'CurseMaven'; url = 'https://cursemaven.com' } }
+        filter { includeGroup 'curse.maven' }
+    }
+    exclusiveContent {
+        forRepository { maven { name = 'Porting Lib'; url = 'https://mvn.devos.one/releases' } }
+        filter { includeGroupByRegex 'io\\.github\\.fabricators_of_create.*' }
+    }
+}
+
+// Optional local settings for the dev game, not part of the repository.
+if (file('local.gradle').exists()) {
+    apply from: 'local.gradle'
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    // @Nullable, as Minecraft itself uses it.
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+
+    // Compiled against the oldest supported Sophisticated Backpacks/Core; the dev game runs the newest.
+    modCompileOnly sophisticated_core_min_version
+    modCompileOnly sophisticated_backpacks_min_version
+    modRuntimeOnly sophisticated_core_version
+    modRuntimeOnly sophisticated_backpacks_version
+    // Sophisticated Core ships these inside its jar; only needed here to compile.
+    modCompileOnly "teamreborn:energy:${team_reborn_energy_version}"
+    modCompileOnly("io.github.fabricators_of_create.Porting-Lib:transfer:${porting_lib_version}") { transitive = false }
+    modCompileOnly("io.github.fabricators_of_create.Porting-Lib:core:${porting_lib_version}") { transitive = false }
+    // Sophisticated Backpacks needs it too: configs.
+    modImplementation "maven.modrinth:forge-config-api-port:${forge_config_api_port_version}"
+}
+
+processResources {
+    var replaceProperties = [
+            mod_id                       : mod_id,
+            mod_name                     : mod_name,
+            mod_license                  : mod_license,
+            mod_version                  : mod_version,
+            mod_authors                  : mod_authors,
+            loader_version_range         : loader_version_range,
+            fabric_api_version_range     : fabric_api_version_range,
+            minecraft_version_range      : minecraft_version_range,
+            sophisticated_core_range     : sophisticated_core_range,
+            sophisticated_backpacks_range: sophisticated_backpacks_range,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('fabric.mod.json') { expand replaceProperties }
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+jar {
+    // Resolved now: the configuration cache can't read project properties while the task runs.
+    var licenseName = "LICENSE_${mod_id}"
+    from('../LICENSE') { rename { licenseName } }
+}

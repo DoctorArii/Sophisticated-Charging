@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0
+- New versions: NeoForge 26.3, 26.2, 26.1.2 and 1.21.11, Forge 1.19.2 and 1.18.2, and Fabric 1.20.1 (with the
+  unofficial Fabric port of Sophisticated Backpacks).
+- Works with much older Sophisticated Backpacks versions: 1.21.1 from 3.20.12 and 1.20.1 from 3.20.5 (packs like
+  All the Mods 10 To the Sky and FTB Skies 2 that ship an older Sophisticated Backpacks).
+- A placed backpack now shows a newly added battery to cables and chargers right away.
+
 ## 1.1.0
 - The pool's charge is shown on the backpack itself: the battery on the side of the backpack model (worn, held or
   placed) now shows the whole pool. With a Battery Upgrade in the same backpack, it shows the total of both.

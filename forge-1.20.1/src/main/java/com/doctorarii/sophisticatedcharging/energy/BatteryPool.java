@@ -27,9 +27,11 @@ public class BatteryPool implements IEnergyStorage {
 	@Nullable
 	private IEnergyStorage base;
 
-	/** Battery slots in ascending order, and the stack seen in each (to notice when a slot changes). */
+	/** Battery slots in ascending order and their stacks, plus the stack seen in every slot (to notice any change at once). */
 	private int[] slots = new int[0];
 	private ItemStack[] stacks = new ItemStack[0];
+	private ItemStack[] seen = new ItemStack[0];
+	private boolean scanned = false;
 	private long lastScan;
 	private boolean dirty = true;
 
@@ -60,19 +62,18 @@ public class BatteryPool implements IEnergyStorage {
 	private void refresh() {
 		InventoryHandler inventory = storage.getInventoryHandler();
 		long now = System.nanoTime();
-		boolean stale = dirty || now - lastScan > RESCAN_NANOS;
-		for (int i = 0; !stale && i < slots.length; i++) {
-			stale = slots[i] >= inventory.getSlots() || inventory.getStackInSlot(slots[i]) != stacks[i];
-		}
-		if (!stale) {
+		int size = inventory.getSlots();
+		if (!dirty && size == seen.length && now - lastScan <= RESCAN_NANOS && unchanged(inventory)) {
 			return;
 		}
-		int size = inventory.getSlots();
+		boolean hadBatteries = slots.length > 0;
+		ItemStack[] seenNow = new ItemStack[size];
 		int[] foundSlots = new int[size];
 		ItemStack[] foundStacks = new ItemStack[size];
 		int count = 0;
 		for (int slot = 0; slot < size; slot++) {
 			ItemStack stack = inventory.getStackInSlot(slot);
+			seenNow[slot] = stack;
 			if (BatteryRules.isPoolBattery(stack)) {
 				foundSlots[count] = slot;
 				foundStacks[count++] = stack;
@@ -80,8 +81,25 @@ public class BatteryPool implements IEnergyStorage {
 		}
 		slots = Arrays.copyOf(foundSlots, count);
 		stacks = Arrays.copyOf(foundStacks, count);
+		seen = seenNow;
 		lastScan = now;
 		dirty = false;
+		boolean firstScan = !scanned;
+		scanned = true;
+		if (!firstScan && hadBatteries != count > 0) {
+			// SB hides an energy storage with no capacity, and a placed backpack keeps what it handed to cables until its handlers
+			// are refreshed: without this, cables next to it would not see the first battery put in (or the last one taken out).
+			storage.refreshInventoryForInputOutput();
+		}
+	}
+
+	private boolean unchanged(InventoryHandler inventory) {
+		for (int slot = 0; slot < seen.length; slot++) {
+			if (inventory.getStackInSlot(slot) != seen[slot]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/** Moves energy through battery {@code i}; a real change is saved at once so the stored backpack matches the item. */

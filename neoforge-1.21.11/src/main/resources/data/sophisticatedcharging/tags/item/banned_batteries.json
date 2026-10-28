@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "mekanism:creative_energy_cube", "required": false },
+    { "id": "powah:energy_cell_creative", "required": false },
+    { "id": "powah:battery_creative", "required": false },
+    { "id": "draconicevolution:creative_capacitor", "required": false }
+  ]
+}

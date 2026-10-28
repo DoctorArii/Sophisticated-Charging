@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "Charging Upgrades for the Fabric port of Sophisticated Backpacks. Every battery you put in the backpack, from any mod, joins one shared energy pool that charges your armor and held tools while you carry or wear the backpack. Cables and chargers see the whole backpack as one big battery. Server owners can ban items, whole mods or tags as batteries or as charge targets.",
+  "authors": ["${mod_authors}"],
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.doctorarii.sophisticatedcharging.fabric.SophisticatedChargingFabric"],
+    "client": ["com.doctorarii.sophisticatedcharging.fabric.SophisticatedChargingFabricClient"]
+  },
+  "mixins": ["sophisticatedcharging.mixins.json"],
+  "depends": {
+    "fabricloader": "${loader_version_range}",
+    "fabric-api": "${fabric_api_version_range}",
+    "minecraft": "${minecraft_version_range}",
+    "java": ">=17",
+    "sophisticatedbackpacks": "${sophisticated_backpacks_range}",
+    "sophisticatedcore": "${sophisticated_core_range}",
+    "forgeconfigapiport": ">=8.0.0",
+    "team_reborn_energy": ">=3.0.0"
+  }
+}

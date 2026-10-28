@@ -1,0 +1,25 @@
+{
+  "type": "sophisticatedcore:upgrade_next_tier",
+  "key": {
+    "D": {
+      "tag": "c:diamonds"
+    },
+    "G": {
+      "tag": "c:gold_ingots"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "V": {
+      "item": "sophisticatedcharging:charging_upgrade"
+    }
+  },
+  "pattern": [
+    " D ",
+    "GVG",
+    "RRR"
+  ],
+  "result": {
+    "item": "sophisticatedcharging:advanced_charging_upgrade"
+  }
+}

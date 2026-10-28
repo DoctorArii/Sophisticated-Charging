@@ -4,7 +4,9 @@ import com.doctorarii.sophisticatedcharging.Config;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -35,11 +37,17 @@ public final class ChargeBarDecorator implements IItemDecorator {
 
 	/** Charge (0 to 1) of the backpack's battery display, or -1 if it has none. */
 	public static float chargeRatio(ItemStack stack) {
-		CustomData renderInfo = stack.get(ModCoreDataComponents.RENDER_INFO_TAG.get());
+		DataComponentType<?> type = ModCoreDataComponents.RENDER_INFO_TAG.get();
+		// Sophisticated Core stores it as CustomData; versions before 1.0 used a plain CompoundTag.
+		CompoundTag renderInfo = switch (stack.get(type)) {
+			case CustomData data -> data.contains(BATTERY_KEY) ? data.copyTag() : null;
+			case CompoundTag tag -> tag;
+			case null, default -> null;
+		};
 		if (renderInfo == null || !renderInfo.contains(BATTERY_KEY)) {
 			return -1;
 		}
-		return BatteryRenderInfo.deserialize(renderInfo.copyTag().getCompound(BATTERY_KEY)).getChargeRatio();
+		return BatteryRenderInfo.deserialize(renderInfo.getCompound(BATTERY_KEY)).getChargeRatio();
 	}
 
 	@Override

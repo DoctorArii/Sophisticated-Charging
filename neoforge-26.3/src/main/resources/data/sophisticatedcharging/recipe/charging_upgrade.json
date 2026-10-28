@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "sophisticatedbackpacks:upgrade_base",
+    "C": "#c:ingots/copper",
+    "G": "#c:ingots/gold",
+    "L": "minecraft:lightning_rod",
+    "R": "#c:storage_blocks/redstone"
+  },
+  "pattern": [
+    "GLG",
+    "CBC",
+    "GRG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sophisticatedcharging:charging_upgrade"
+  }
+}

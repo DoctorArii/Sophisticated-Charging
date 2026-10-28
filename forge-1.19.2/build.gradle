@@ -1,0 +1,82 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.148'
+}
+
+version = "${minecraft_version}-${mod_version}"
+group = mod_group_id
+base { archivesName = mod_id }
+
+repositories {
+    exclusiveContent {
+        forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    // Sophisticated builds older than the ones on Modrinth (CurseForge file ids).
+    exclusiveContent {
+        forRepository { maven { name = 'CurseMaven'; url = 'https://cursemaven.com' } }
+        filter { includeGroup 'curse.maven' }
+    }
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+legacyForge {
+    version = project.forge_version
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+    mods { "${mod_id}" { sourceSet(sourceSets.main) } }
+}
+
+// Optional local settings (e.g. other versions for the dev game), not part of the repository.
+if (file('local.gradle').exists()) {
+    apply from: 'local.gradle'
+}
+
+// Compiled against the oldest supported Sophisticated Backpacks/Core (so nothing newer is used by accident); the dev game
+// runs the newest. A version is a Modrinth version, or a full Maven coordinate (contains ':') for older CurseForge files.
+def sophisticated = { String project, String version -> version.contains(':') ? version : "maven.modrinth:${project}:${version}" }
+dependencies {
+    modCompileOnly sophisticated('sophisticated-core', sophisticated_core_min_version)
+    modCompileOnly sophisticated('sophisticated-backpacks', sophisticated_backpacks_min_version)
+    modRuntimeOnly sophisticated('sophisticated-core', sophisticated_core_version)
+    modRuntimeOnly sophisticated('sophisticated-backpacks', sophisticated_backpacks_version)
+    // Optional: charging items in Curios slots.
+    modCompileOnly "maven.modrinth:curios:${curios_version}"
+    modRuntimeOnly "maven.modrinth:curios:${curios_version}"
+}
+
+processResources {
+    var props = [
+            mod_version                  : mod_version,
+            mod_license                  : mod_license,
+            mod_authors                  : mod_authors,
+            sophisticated_core_range     : sophisticated_core_range,
+            sophisticated_backpacks_range: sophisticated_backpacks_range,
+    ]
+    inputs.properties props
+    filesMatching('META-INF/mods.toml') { expand props }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+jar {
+    from('../LICENSE') { rename { 'LICENSE_sophisticatedcharging' } }
+    manifest {
+        attributes([
+                'Specification-Title'   : mod_id,
+                'Specification-Vendor'  : mod_authors,
+                'Specification-Version' : mod_version,
+                'Implementation-Title'  : mod_name,
+                'Implementation-Version': mod_version,
+                'Implementation-Vendor' : mod_authors,
+        ])
+    }
+}

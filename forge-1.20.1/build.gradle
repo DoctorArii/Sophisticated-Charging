@@ -12,6 +12,11 @@ repositories {
         forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
     }
+    // Sophisticated builds older than the ones on Modrinth (CurseForge file ids).
+    exclusiveContent {
+        forRepository { maven { name = 'CurseMaven'; url = 'https://cursemaven.com' } }
+        filter { includeGroup 'curse.maven' }
+    }
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -36,12 +41,13 @@ if (file('local.gradle').exists()) {
 }
 
 // Compiled against the oldest supported Sophisticated Backpacks/Core (so nothing newer is used by accident); the dev game
-// runs the newest.
+// runs the newest. A version is a Modrinth version, or a full Maven coordinate (contains ':') for older CurseForge files.
+def sophisticated = { String project, String version -> version.contains(':') ? version : "maven.modrinth:${project}:${version}" }
 dependencies {
-    modCompileOnly "maven.modrinth:sophisticated-core:${sophisticated_core_min_version}"
-    modCompileOnly "maven.modrinth:sophisticated-backpacks:${sophisticated_backpacks_min_version}"
-    modRuntimeOnly "maven.modrinth:sophisticated-core:${sophisticated_core_version}"
-    modRuntimeOnly "maven.modrinth:sophisticated-backpacks:${sophisticated_backpacks_version}"
+    modCompileOnly sophisticated('sophisticated-core', sophisticated_core_min_version)
+    modCompileOnly sophisticated('sophisticated-backpacks', sophisticated_backpacks_min_version)
+    modRuntimeOnly sophisticated('sophisticated-core', sophisticated_core_version)
+    modRuntimeOnly sophisticated('sophisticated-backpacks', sophisticated_backpacks_version)
     // Optional: charging items in Curios slots.
     modCompileOnly "maven.modrinth:curios:${curios_version}"
     modRuntimeOnly "maven.modrinth:curios:${curios_version}"

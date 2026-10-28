@@ -9,6 +9,7 @@ import com.doctorarii.sophisticatedcharging.init.ModContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -80,7 +81,12 @@ public class ChargingUpgradeWrapper extends UpgradeWrapperBase<ChargingUpgradeWr
 		return pool;
 	}
 
-	@Override
+	/** Sophisticated Core before 1.0.5 ticks upgrades with this signature; newer versions call {@link #tick(Entity, Level, BlockPos)}. */
+	public void tick(@Nullable LivingEntity entity, Level level, BlockPos pos) {
+		tick((Entity) entity, level, pos);
+	}
+
+	// No @Override: implements ITickableUpgrade.tick in Sophisticated Core 1.0.5 and newer.
 	public void tick(@Nullable Entity entity, Level level, BlockPos pos) {
 		if (level.isClientSide() || isInCooldown(level)) {
 			return;

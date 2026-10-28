@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "sophisticatedcharging:item/charging_upgrade"
+  }
+}

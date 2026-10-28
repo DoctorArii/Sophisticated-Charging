@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "sophisticatedcharging:charging_upgrade",
+    "sophisticatedcharging:advanced_charging_upgrade"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "item.sophisticatedcharging.charging_upgrade": "Charging Upgrade",
+  "item.sophisticatedcharging.charging_upgrade.tooltip": "Links every battery in the backpack (from any mod) into one energy pool\nand charges your armor and held items from it.\nCables and chargers see the backpack as one big battery.",
+  "item.sophisticatedcharging.advanced_charging_upgrade": "Advanced Charging Upgrade",
+  "item.sophisticatedcharging.advanced_charging_upgrade.tooltip": "Like the Charging Upgrade, but faster, and can also charge\nyour whole inventory and tools stored in the backpack.\nHas a filter for what gets charged.",
+  "item.sophisticatedcharging.charging_upgrade.rate": "Charges up to %s E/t",
+  "tooltip.sophisticatedcharging.charge": "Charge: %s",
+
+  "gui.sophisticatedcharging.upgrades.charging": "Charging",
+  "gui.sophisticatedcharging.upgrades.charging.tooltip": "Charging Upgrade settings",
+  "gui.sophisticatedcharging.upgrades.advanced_charging": "Adv. Charging",
+  "gui.sophisticatedcharging.upgrades.advanced_charging.tooltip": "Advanced Charging Upgrade settings",
+  "gui.sophisticatedcharging.status.charging_upgrade_present": "Only one Charging Upgrade fits in a backpack",
+
+  "gui.sophisticatedcharging.buttons.charge_inventory": "Charge whole inventory",
+  "gui.sophisticatedcharging.buttons.do_not_charge_inventory": "Charge only armor and held items",
+  "gui.sophisticatedcharging.buttons.charge_contents": "Charge items stored in the backpack",
+  "gui.sophisticatedcharging.buttons.do_not_charge_contents": "Don't charge items stored in the backpack",
+
+  "gui.sophisticatedcharging.pool.stored": "%s / %s E",
+  "gui.sophisticatedcharging.pool.batteries": "%s batteries",
+  "gui.sophisticatedcharging.pool.batteries_and_upgrade": "%s batteries + upgr.",
+  "gui.sophisticatedcharging.pool.tooltip.title": "Battery pool",
+  "gui.sophisticatedcharging.pool.tooltip.stored": "%s / %s E",
+  "gui.sophisticatedcharging.pool.tooltip.help": "Every battery in this backpack plus its Battery Upgrade."
+}

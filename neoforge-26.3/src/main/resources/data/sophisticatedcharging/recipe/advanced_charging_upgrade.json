@@ -1,0 +1,19 @@
+{
+  "type": "sophisticatedcore:upgrade_next_tier",
+  "category": "misc",
+  "key": {
+    "D": "#c:gems/diamond",
+    "G": "#c:ingots/gold",
+    "R": "#c:storage_blocks/redstone",
+    "V": "sophisticatedcharging:charging_upgrade"
+  },
+  "pattern": [
+    " D ",
+    "GVG",
+    "RRR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "sophisticatedcharging:advanced_charging_upgrade"
+  }
+}

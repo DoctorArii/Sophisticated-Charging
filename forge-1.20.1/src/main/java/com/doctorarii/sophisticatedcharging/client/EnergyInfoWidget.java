@@ -5,6 +5,7 @@ import com.doctorarii.sophisticatedcharging.energy.EnergyFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.p3pp3rf1y.sophisticatedcore.client.gui.controls.WidgetBase;
@@ -65,6 +66,12 @@ public class EnergyInfoWidget extends WidgetBase {
 				? Component.translatable("gui.sophisticatedcharging.pool.batteries_and_upgrade", batteries)
 				: Component.translatable("gui.sophisticatedcharging.pool.batteries", batteries);
 		guiGraphics.drawString(minecraft.font, countLine, x, y + BAR_HEIGHT + 13, TEXT_COLOR, false);
+	}
+
+	/** Sophisticated Core before 1.0 leaves this to each widget. */
+	@Override
+	public void updateNarration(NarrationElementOutput output) {
+		// the numbers are in the tooltip
 	}
 
 	@Override
