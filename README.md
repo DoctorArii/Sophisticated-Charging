@@ -75,7 +75,8 @@ One Charging Upgrade per backpack. The Advanced one is made from the basic one a
 ## For server owners and pack makers
 Everything is in `sophisticatedcharging-server.toml`, synced to players. On NeoForge 1.21.1 and newer it is in
 `config/` (a copy in `<world>/serverconfig/` overrides it for one world); on Forge 1.20.1 and older it is in
-`<world>/serverconfig/` (put defaults for new worlds in `defaultconfigs/`); on Fabric it is in `config/`.
+`<world>/serverconfig/` (put defaults for new worlds in `defaultconfigs/`); on Fabric it is in `config/`. On NeoForge 26.3
+the same file is called `sophisticatedcharging-synced.toml` (NeoForge renamed that config type).
 
 | Setting | Default | What it does |
 |---|---|---|
